@@ -1,0 +1,7 @@
+<%= form_for @file do |f| %>
+	<%= f.label :File_Name %>
+	<%= f.text_field :file_name %>
+	<%= f.hidden_field :user_id, value: current_user.id %>
+	<%= f.select :status, ["public_status","private_status"]%>
+	<%= f.submit 'Create file' %>
+<% end %>

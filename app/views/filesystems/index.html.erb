@@ -1,0 +1,17 @@
+<%= link_to "Add file", new_filesystem_path, class: "btn btn-primary" %>
+<h1>All files</h1>
+<br>
+<br>
+
+<% @file.each do |f| %>
+<%= link_to :controller => "filesystems", :action => "show", :id => f.id do%>
+<div class="jumbotron jumbotron-fluid" style="height: 200px">
+
+<h1><%= f.file_name %></h1>
+<h4><%= f.status %></h4>
+<h4>User Email:<b><%= f.user.email %></b></h4>
+<% end %>
+</div>
+<br>
+<br>
+<% end %>

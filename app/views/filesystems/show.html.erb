@@ -1,0 +1,8 @@
+<h3>File</h3>
+<%= @file.file_name %>
+<br>
+<%= @file.status %>
+<br>
+<%= @file.user.email %>
+<%= button_to "Delete", filesystem_path , :method => :delete , :confirm => "Are you sure?"%>
+<%= button_to "edit", :controller => "filesystems", :action => "edit", :class => "btn btn-info"%>
