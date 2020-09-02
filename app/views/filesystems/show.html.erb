@@ -1,8 +1,38 @@
-<h3>File</h3>
-<%= @file.file_name %>
+<style>
+	.img{
+		height: 200px;
+		width: 200px;
+	}
+</style>
+<% if @file.present? %>
+<div class="container">
+	<%= button_to "Delete", filesystem_path , :method => :delete, data: {confirm: "Are you sure?"}, :class => "btn btn-danger"%>
+	<br>
+	<%= link_to "edit", edit_filesystem_path, :class => "btn btn-warning" %>
+	<br>
+	<div class="row">
+		<div class="col-sm-6">
+		
+		<h3><b>File Name:</b><%= @file.file_name %></h3>
+		<br>
+		<h3><b>File status:</b><%= @file.status %></h3>
+		<br>
+		<h3><b>File Owner:</b><%= @file.user.email %></h3>
+		</div>
+		<div class="col-sm-6">
+			<%= image_tag(@file.image, :class => "img") if @file.image.attached? %>
+		</div>
+	</div>	
+</div>
+<% end %>
 <br>
-<%= @file.status %>
 <br>
-<%= @file.user.email %>
-<%= button_to "Delete", filesystem_path , :method => :delete , :confirm => "Are you sure?"%>
-<%= button_to "edit", :controller => "filesystems", :action => "edit", :class => "btn btn-info"%>
+
+<br>
+<br>
+<div class="container">
+<h3><%= @file.comments.count %>Comments</h3>
+<%= render 'comments/comment', :locals => {:comments => Comment.all} %>
+</div>
+<%= render 'comments/form' %>
+

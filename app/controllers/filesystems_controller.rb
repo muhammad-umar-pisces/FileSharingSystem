@@ -8,7 +8,7 @@ class FilesystemsController < ApplicationController
 	end
 
 	def create
-		@file = Filesystem.create(file_params)
+		@file = Filesystem.new(file_params)
 		if @file.save
 			flash[:notice] = "File created!"
 		else
@@ -18,11 +18,16 @@ class FilesystemsController < ApplicationController
 	end
 
 	def show
-		@file = Filesystem.find(params[:id])
+		@file = Filesystem.find_by(id: params[:id])
+		@comment = Comment.new
+		unless @file.present?
+			redirect_to filesystems_path
+			flash[:notice] = 'file not found!'
+		end
 	end
 
 	def edit
-		@file = Filesystem.find(params[:id])
+		@file = Filesystem.find_by_id(params[:id])
 		
 	end
 
@@ -31,13 +36,9 @@ class FilesystemsController < ApplicationController
 		redirect_to filesystems_path
 	end
 
-	def delete
-		@file = Filesystem.find(params[:id])
-	end
 
 	def destroy
-		@file = Filesystem.find(params[:id])
-		@file.destroy
+		@file = Filesystem.find_by_id(params[:id])
 		if @file.destroy
 			flash[:notice] = 'file deleted!'
 		else
@@ -48,6 +49,6 @@ class FilesystemsController < ApplicationController
 
 	private
 	def file_params
-		params.require(:filesystem).permit(:user_id, :file_name, :status)
+		params.require(:filesystem).permit(:user_id, :file_name, :status, :image)
 	end
 end

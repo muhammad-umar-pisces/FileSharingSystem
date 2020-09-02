@@ -1,0 +1,14 @@
+<style>
+	.comment{
+		background-color: #f1f3f8;
+	}
+</style>
+<% @file.comments.each do |f| %>
+<div class="container comment">
+	<h4><b><%= f.filesystem.user.email %></b></h4>
+	<h3>
+		<%= f.content %>
+	</h3>	
+</div>
+<br>
+<% end %>	
