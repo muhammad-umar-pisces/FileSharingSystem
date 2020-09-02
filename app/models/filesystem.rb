@@ -10,14 +10,19 @@ class Filesystem < ApplicationRecord
 	enum status: { public_status:0, private_status: 1 } 
 
 	def create_notification
-		notifications.create(title: "#{file_name} uploaded!", user_id: self.user.id)
+		notifications.create(title: "You uploaded #{file_name} ", user_id: self.user.id)
 	end
 
-	def create_notification
-		notifications.create(title: "#{file_name} updated!", user_id: self.user.id)
+	def update_notification
+		notifications.create(title: "You updated #{file_name}", user_id: self.user.id)
 	end
 
-	def create_notification
-		notifications.create(title: "#{file_name} deleted!", user_id: self.user.id)
+	def destroy_notification
+		notifications.create(title: "You deleted #{file_name}", user_id: self.user.id)
 	end
+
+	def increase_visit
+    self.visit_counter+=1
+    save!
+    end
 end

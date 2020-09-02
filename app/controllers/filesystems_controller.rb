@@ -19,6 +19,7 @@ class FilesystemsController < ApplicationController
 
 	def show
 		@file = Filesystem.find_by(id: params[:id])
+		@file.increase_visit
 		@comment = Comment.new
 		unless @file.present?
 			redirect_to filesystems_path

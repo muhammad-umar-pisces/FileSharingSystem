@@ -1,0 +1,8 @@
+<h2>All notifications</h2>
+<% current_user.notifications.each do |f| %>
+	<div class="alert alert-info container">
+  		<strong>
+  			<%= f.title %>
+		</strong>
+	</div>
+<% end %>
