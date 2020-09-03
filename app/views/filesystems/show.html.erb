@@ -6,10 +6,12 @@
 </style>
 <% if @file.present? %>
 <div class="container">
+	<% if @file.user == current_user %>
 	<%= button_to "Delete", filesystem_path , :method => :delete, data: {confirm: "Are you sure?"}, :class => "btn btn-danger"%>
 	<br>
 	<%= link_to "edit", edit_filesystem_path, :class => "btn btn-warning" %>
 	<br>
+	<% end %>
 	<div class="row">
 		<div class="col-sm-6">
 			<h3><span class="badge badge-secondary" style="font-size:20px;"><%= @file.visit_counter %></span>Views</h3>

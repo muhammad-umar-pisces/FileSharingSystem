@@ -1,6 +1,7 @@
 class FilesystemsController < ApplicationController
+	before_action :find_filesystem, only: [:show, :update, :edit, :destroy]
 	def index
-		@file = Filesystem.all
+		@files = Filesystem.order(created_at: :desc)
 	end
 
 	def new
@@ -11,45 +12,51 @@ class FilesystemsController < ApplicationController
 		@file = Filesystem.new(file_params)
 		if @file.save
 			flash[:notice] = "File created!"
+			redirect_to filesystems_path
 		else
-			flash[:notice] = "File not created!"
+			flash[:alert] = "File not created!"
+			redirect_to new_filesystem_path
 		end
-		redirect_to filesystems_path
 	end
 
 	def show
-		@file = Filesystem.find_by(id: params[:id])
-		@file.increase_visit
 		@comment = Comment.new
-		unless @file.present?
+		if @file.blank?
 			redirect_to filesystems_path
-			flash[:notice] = 'file not found!'
+			flash[:alert] = 'file not found!'		
+		else
+		@file.increase_visit
 		end
 	end
 
 	def edit
-		@file = Filesystem.find_by_id(params[:id])
-		
 	end
 
 	def update
-		@file = Filesystem.update(file_params)
-		redirect_to filesystems_path
+		if @file.update(file_params)
+			flash[:notice] = 'file updated!'
+		else
+			flash[:alert] = 'file not updated!'
+		end
+		redirect_to filesystem_path
 	end
 
 
 	def destroy
-		@file = Filesystem.find_by_id(params[:id])
 		if @file.destroy
 			flash[:notice] = 'file deleted!'
 		else
-			flash[:notice] = 'file not deleted'
+			flash[:alert] = 'file not deleted'
 		end
 		redirect_to filesystems_path
 	end
 
 	private
 	def file_params
-		params.require(:filesystem).permit(:user_id, :file_name, :status, :image)
+		params.require(:filesystem).permit(:file_name, :status, :image, :user_id)
+	end
+
+	def find_filesystem
+		@file = Filesystem.find_by_id(params[:id])
 	end
 end

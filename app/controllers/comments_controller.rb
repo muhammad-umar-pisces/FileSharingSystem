@@ -13,10 +13,14 @@ class CommentsController < ApplicationController
 	end
 
 	def destroy
-		@file = Filesystem.find(params[:filesystem_id])
+		@file = Filesystem.find_by_id(params[:filesystem_id])
 		@comment = @filesystem.comments.find(params[:id])
-		@comment.destroy
+		if @comment.destroy
+			flash[:notice] = 'file deleted!'
 		redirect_to @file
+	else
+		flash[:notice] = 'file not deleted!'
+	end
 	end
 
 	private

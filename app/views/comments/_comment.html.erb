@@ -4,6 +4,7 @@
 	}
 </style>
 <% @file.comments.each do |f| %>
+<% if @file.user == current_user %>
 <div class="container comment">
 	<h4><b><%= f.filesystem.user.email %></b></h4>
 	<h3>
@@ -11,4 +12,5 @@
 	</h3>	
 </div>
 <br>
+<% end %>
 <% end %>	

@@ -7,6 +7,7 @@ class Filesystem < ApplicationRecord
 	has_many :notifications
 	validates :file_name, presence: true
 	has_one_attached :image
+	validates :image, presence: true
 	enum status: { public_status:0, private_status: 1 } 
 
 	def create_notification
@@ -22,7 +23,8 @@ class Filesystem < ApplicationRecord
 	end
 
 	def increase_visit
-    self.visit_counter+=1
-    save!
+    	self.visit_counter += 1
+    	save!
+    	notifications.create(title: "viewed #{file_name}", user_id: self.user.id)
     end
 end
