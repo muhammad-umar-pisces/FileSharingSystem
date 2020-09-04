@@ -5,6 +5,7 @@
 	}
 </style>
 <% if @file.present? %>
+<%= filesystem_url %>
 <div class="container">
 	<% if @file.user == current_user %>
 	<%= button_to "Delete", filesystem_path , :method => :delete, data: {confirm: "Are you sure?"}, :class => "btn btn-danger"%>
@@ -15,12 +16,12 @@
 	<div class="row">
 		<div class="col-sm-6">
 			<h3><span class="badge badge-secondary" style="font-size:20px;"><%= @file.visit_counter %></span>Views</h3>
-		<h3></h3>
-		<h3><b>File Name:</b><%= @file.file_name %></h3>
-		<br>
-		<h3><b>File status:</b><%= @file.status %></h3>
-		<br>
-		<h3><b>File Owner:</b><%= @file.user.email %></h3>
+			<h3></h3>
+			<h3><b>File Name:</b><%= @file.file_name %></h3>
+			<br>
+			<h3><b>File status:</b><%= @file.status %></h3>
+			<br>
+			<h3><b>File Owner:</b><%= @file.user.email %></h3>
 		</div>
 		<div class="col-sm-6">
 			<%= image_tag(@file.image, :class => "img") if @file.image.attached? %>
@@ -34,8 +35,8 @@
 <br>
 <br>
 <div class="container">
-<h3><%= @file.comments.count %>Comments</h3>
-<%= render 'comments/comment', :locals => {:comments => Comment.all} %>
+	<h3><%= @file.comments.count %>Comments</h3>
+	<%= render 'comments/comment', :locals => {:comments => Comment.all} %>
 </div>
 <%= render 'comments/form' %>
 

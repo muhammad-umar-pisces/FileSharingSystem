@@ -22,9 +22,11 @@ class Filesystem < ApplicationRecord
 		notifications.create(title: "You deleted #{file_name}", user_id: self.user.id)
 	end
 
-	def increase_visit
+	def increase_visit(user)
+		unless user == self.user
     	self.visit_counter += 1
     	save!
     	notifications.create(title: "viewed #{file_name}", user_id: self.user.id)
+    end
     end
 end

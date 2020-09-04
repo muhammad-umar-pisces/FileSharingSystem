@@ -3,19 +3,19 @@
 <br>
 <br>
 <div class="container">
-<h3><span class="badge badge-secondary" style="font-size:20px;"><%= @files.count %></span>Files</h3><br>
-<% @files.each do |f| %>
-<% unless f.status == "private_status" && f.user.id != current_user.id %>
-<%= link_to :controller => "filesystems", :action => "show", :id => f.id do%>
-<div class="jumbotron jumbotron-fluid" style="height: 200px">
+	<h3><span class="badge badge-secondary" style="font-size:20px;"><%= @files.count %></span>Files</h3><br>
+	<% @files.each do |f| %>
+	<% unless f.status == "private_status" && f.user.id != current_user.id %>
+	<%= link_to :controller => "filesystems", :action => "show", :id => f.id do%>
+	<div class="jumbotron jumbotron-fluid" style="height: 200px">
 
-<h1><%= f.file_name.titleize %></h1>
-<h4><%= f.status %></h4>
-<h4>Owner Email:<b><%= f.user.email %></b></h4>
-</div>
-<% end %>
-<% end %>
-<br>
-<br>
-<% end %>
+		<h1><%= f.file_name.titleize %></h1>
+		<h4><%= f.status %></h4>
+		<h4>Owner Email:<b><%= f.user.email %></b></h4>
+	</div>
+	<% end %>
+	<% end %>
+	<br>
+	<br>
+	<% end %>
 </div>

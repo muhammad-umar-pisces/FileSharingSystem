@@ -25,8 +25,8 @@ class FilesystemsController < ApplicationController
 			redirect_to filesystems_path
 			flash[:alert] = 'file not found!'		
 		else
-		@file.increase_visit
-		end
+		@file.increase_visit(current_user)
+	end
 	end
 
 	def edit

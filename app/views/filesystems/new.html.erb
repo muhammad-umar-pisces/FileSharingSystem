@@ -1,12 +1,12 @@
 <div class="container">
-<%= form_for @file do |f| %>
-<div class="form-group">
-    <%= f.label :File_Name, :class => "sr-only" %>
-	<%= f.text_field :file_name, :class => "form-control" %><br><br>
-	<%= f.hidden_field :user_id, value: current_user.id %>
-	<%= f.select :status, ["public_status","private_status"],{:class => "costom-select"}%><br><br>
-	<%= f.file_field :image %><br><br>
-	<%= f.submit 'Create file', :class => "btn btn-primary" %>
-  </div>
-<% end %>
+	<%= form_for @file do |f| %>
+	<div class="form-group">
+		<%= f.label :File_Name, :class => "sr-only" %>
+		<%= f.text_field :file_name, :class => "form-control" %><br><br>
+		<%= f.hidden_field :user_id, value: current_user.id %>
+		<%= f.select :status, ["public_status","private_status"],{:class => "costom-select"}%><br><br>
+		<%= f.file_field :image %><br><br>
+		<%= f.submit 'Create file', :class => "btn btn-primary" %>
+	</div>
+	<% end %>
 </div>

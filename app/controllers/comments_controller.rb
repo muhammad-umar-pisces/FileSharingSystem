@@ -1,7 +1,6 @@
 class CommentsController < ApplicationController
-	before_action :authenticate_user!
+	before_action :find_file, only: [:create, :destroy]
 	def create
-		@file = Filesystem.find(params[:filesystem_id])
 		@comment = @file.comments.new(comment_params)
 		if @comment.save
 			flash[:notice] = 'comment uploaded!'
@@ -13,7 +12,6 @@ class CommentsController < ApplicationController
 	end
 
 	def destroy
-		@file = Filesystem.find_by_id(params[:filesystem_id])
 		@comment = @filesystem.comments.find(params[:id])
 		if @comment.destroy
 			flash[:notice] = 'file deleted!'
@@ -26,5 +24,9 @@ class CommentsController < ApplicationController
 	private
 	def comment_params
 		params.require(:comment).permit(:filesystem_id, :content, :user_id)
+	end
+
+	def find_file
+		@file = Filesystem.find_by_id(params[:filesystem_id])
 	end
 end
